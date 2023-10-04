@@ -64,9 +64,30 @@ FROM data_analyst_jobs;
 
 -- #8. How many unique job titles are there for California companies?
 
+SELECT DISTINCT (title), location
+FROM data_analyst_jobs
+WHERE location = 'CA';
+
+-- 230
+
 -- #9. Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations?
 
+SELECT AVG (star_rating), company, review_count
+FROM data_analyst_jobs
+WHERE review_count > 5000
+GROUP BY company, review_count;
+
+-- 46
+
 -- #10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
+
+SELECT AVG (star_rating), company, review_count
+FROM data_analyst_jobs
+WHERE review_count > 5000
+GROUP BY company, review_count
+ORDER BY avg DESC;
+
+-- Microsoft: 4.1999998090000000 (Runners up: Unilever, Nike, Kaiser Permanente, AmEx, General Motors)
 
 -- #11. Find all the job titles that contain the word ‘Analyst’. How many different job titles are there?
 
