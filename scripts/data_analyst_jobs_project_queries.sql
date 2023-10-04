@@ -109,15 +109,54 @@ OR title = 'Analyst';
 
 -- #12. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
+SELECT (title)
+FROM data_analyst_jobs
+WHERE title NOT iLIKE '%Analyst%'
+AND title NOT iLIKE '%Analytics%';
+
+-- 4 total titles
+
 SELECT DISTINCT (title)
 FROM data_analyst_jobs
 WHERE title NOT iLIKE '%Analyst%'
 AND title NOT iLIKE '%Analytics%';
 
+-- 4 distinct titles
+
 -- BONUS: You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks.
+
+SELECT title, domain, skill, days_since_posting
+FROM data_analyst_jobs
+WHERE skill LIKE '%SQL%'
+AND days_since_posting > 21
+ORDER BY domain;
+
+-- 619
 
 -- Disregard any postings where the domain is NULL.
 
+SELECT title, domain, skill, days_since_posting
+FROM data_analyst_jobs
+WHERE domain IS NOT NULL
+AND skill LIKE '%SQL%'
+AND days_since_posting > 21
+ORDER BY domain;
+
+-- 403
+
 -- Order your results so that the domain with the greatest number of hard to fill jobs is at the top.
 
--- Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
+SELECT domain, COUNT(title) as job_count
+FROM data_analyst_jobs
+WHERE domain IS NOT NULL
+AND skill LIKE '%SQL%'
+AND days_since_posting > 21
+GROUP BY domain
+ORDER BY job_count DESC;
+
+-- Which four industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
+
+-- Internet and Software: 62
+-- Banks and Financial Services: 61
+-- Consulting and Business Services: 57
+-- Health Care: 52
