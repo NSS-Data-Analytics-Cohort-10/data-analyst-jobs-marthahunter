@@ -51,9 +51,9 @@ BETWEEN 500 AND 1000;
 SELECT AVG (star_rating), location
 FROM data_analyst_jobs
 GROUP BY location
-ORDER BY avg;
+ORDER BY avg DESC;
 
--- NE is highest with an average rating of 4.1999998090000000
+-- Nebraska (NE) is highest with an average rating of 4.1999998090000000
 
 -- #7. Select unique job titles from the data_analyst_jobs table. How many are there?
 
@@ -146,13 +146,13 @@ ORDER BY domain;
 
 -- Order your results so that the domain with the greatest number of hard to fill jobs is at the top.
 
-SELECT domain, COUNT(title) as job_count
+SELECT domain, COUNT(title) as hard_to_fill_count
 FROM data_analyst_jobs
 WHERE domain IS NOT NULL
 AND skill LIKE '%SQL%'
 AND days_since_posting > 21
 GROUP BY domain
-ORDER BY job_count DESC;
+ORDER BY hard_to_fill_count DESC;
 
 -- Which four industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 
